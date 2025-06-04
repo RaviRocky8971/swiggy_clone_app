@@ -1,0 +1,338 @@
+[
+    {
+        "code" : "SORT",
+        "name" : "Sort",
+        "options" : [
+            {
+                "code" : "RELEVANCE",
+                "name" : "Relevance"
+            },
+            {
+                "code" : "DELIVERYTIME",
+                "name" : "Delivery Time"
+            },
+            {
+                "code" : "RATING",
+                "name" : "Rating"
+            },
+            {
+                "code" : "LOWTOHIGH",
+                "name" : "Low to High"
+            },
+            {
+                "code" : "HIGHTOLOW",
+                "name" : "High to Low"
+            }
+        ]
+    },
+    {
+        "code" : "DELIVERYTIME",
+        "name" : "Delivery Time",
+        "options" : [
+            {
+                "code" : "FASTDELIVERY",
+                "name" : "Fast Delivery"
+            }
+        ] 
+    },
+    {
+        "" : "CUISINES",
+        "name" : "Cuisines",
+        "options" : [
+            {
+                "code" : "American",
+                "name" : "American"
+            },
+            {
+                "code" : "Andhra",
+                "name" : "Andhra"
+            },
+            {
+                "code" : "Arabian",
+                "name" : "Arabian"
+            },
+            {
+                "code" : "Asian",
+                "name" : "Asian"
+            },
+            {
+                "code" : "Bakery",
+                "name" : "Bakery"
+            },
+            {
+                "code" : "Barbecue",
+                "name" : "Barbecue"
+            },
+            {
+                "code" : "Bengali",
+                "name" : "Bengali"
+            },
+            {
+                "code" : "Beverages",
+                "name" : "Beverages"
+            },
+            {
+                "code" : "Biryani",
+                "name" : "Biryani"
+            },
+            {
+                "code" : "British",
+                "name" : "British"
+            },
+            {
+                "code" : "Burger",
+                "name" : "Burger"
+            },
+            {
+                "code" : "Burmese",
+                "name" : "Burmese"
+            },
+            {
+                "code" : "Cafe",
+                "name" : "Cafe"
+            },
+            {
+                "code" : "Cakes",
+                "name" : "Cakes"
+            },
+            {
+                "code" : "Chaat",
+                "name" : "Chaat"
+            },
+            {
+                "code" : "Chinese",
+                "name" : "Chinese"
+            },
+            {
+                "code" : "Coastal",
+                "name" : "Coastal"
+            },
+            {
+                "code" : "Continental",
+                "name" : "Continental"
+            },
+            {
+                "code" : "Desert",
+                "name" : "Desert"
+            },
+            {
+                "code" : "European",
+                "name" : "European"
+            },
+            {
+                "code" : "Fast Food",
+                "name" : "Fast Food"
+            },
+            {
+                "code" : "Grill",
+                "name" : "Grill"
+            },
+            {
+                "code" : "Haleem",
+                "name" : "Haleem"
+            },
+            {
+                "code" : "Healthy Food",
+                "name" : "Healthy Food"
+            },
+            {
+                "code" : "Home Food",
+                "name" : "Home Food"
+            },
+            {
+                "code" : "Hyderabadi",
+                "name" : "Hyderabadi"
+            },
+            {
+                "code" : "Ice Cream",
+                "name" : "Ice Cream"
+            },
+            {
+                "code" : "Indian",
+                "name" : "Indian"
+            },
+            {
+                "code" : "Italian",
+                "name" : "Italian"
+            },
+            {
+                "code" : "Jain",
+                "name" : "Jain"
+            },
+            {
+                "code" : "Juices",
+                "name" : "Juices"
+            },
+            {
+                "code" : "Kebabs",
+                "name" : "Kebabs"
+            },
+            {
+                "code" : "Kerala",
+                "name" : "Kerala"
+            },
+            {
+                "code" : "Korean",
+                "name" : "Korean"
+            },
+            {
+                "code" : "Mexican",
+                "name" : "Mexican"
+            },
+            {
+                "code" : "Milkshakes",
+                "name" : "Milkshakes"
+            },
+            {
+                "code" : "Momos",
+                "name" : "Momos"
+            },
+            {
+                "code" : "Mughlai",
+                "name" : "Mughlai"
+            },
+            {
+                "code" : "North Indian",
+                "name" : "North Indian"
+            },
+            {
+                "code" : "Oriya",
+                "name" : "Oriya"
+            },
+            {
+                "code" : "Paan",
+                "name" : "Paan"
+            },
+            {
+                "code" : "Pasta",
+                "name" : "Pasta"
+            },
+            {
+                "code" : "Pizzas",
+                "name" : "Pizzas"
+            },
+            {
+                "code" : "Punjabi",
+                "name" : "Punjabi"
+            },
+            {
+                "code" : "Rajasthani",
+                "name" : "Rajasthani"
+            },
+            {
+                "code" : "Rayalaseema",
+                "name" : "Rayalaseema"
+            },
+            {
+                "code" : "Rolls",
+                "name" : "Rolls"
+            },
+            {
+                "code" : "Salads",
+                "name" : "Salads"
+            },
+            {
+                "code" : "Seafood",
+                "name" : "Seafood"
+            },
+            {
+                "code" : "Snacks",
+                "name" : "Snacks"
+            },
+            {
+                "code" : "South Indian",
+                "name" : "South Indian"
+            },
+            {
+                "code" : "Street Food",
+                "name" : "Street Food"
+            },
+            {
+                "code" : "Sweets",
+                "name" : "Sweets"
+            },
+            {
+                "code" : "Telangana",
+                "name" : "Telangana"
+            },
+            {
+                "code" : "Thai",
+                "name" : "Thai"
+            },
+            {
+                "code" : "Thalis",
+                "name" : "Thalis"
+            },
+            {
+                "code" : "Tribal",
+                "name" : "Tribal"
+            },
+            {
+                "code" : "Dessert",
+                "name" : "Dessert"
+            },
+            {
+                "code" : "Paratha",
+                "name" : "Paratha"
+            },
+            {
+                "code" : "Pure Veg",
+                "name" : "Pure Veg"
+            },
+            {
+                "code" : "Sandwich",
+                "name" : "Sandwich"
+            },
+            {
+                "code" : "Shawarma",
+                "name" : "Shawarma"
+            },
+            {
+                "code" : "Snack",
+                "name" : "Snack"
+            }
+        ]
+    },
+    {
+        "code" : "EXPLORE",
+        "name" : "Explore",
+        "options" : [
+            {
+                "code"  : "NEWONSWIGGY",
+                "name" : "New on Swiggy"
+            }
+        ]
+    },
+    {
+        "code" : "RATINGS",
+        "name" : "Ratings",
+        "options" : [
+            {
+                "code" : "4.5",
+                "name" : "Rating 4.5+"
+            },
+            {
+                "code" : "4.0",
+                "name" : "Rating 4.0+"
+            },
+            {
+                "code" : "3.5",
+                "name" : "Rating 3.5+"
+            }
+        ]
+    },
+    {
+        "code" : "VEGANDNONVEG",
+        "name" : "Veg/Non Veg",
+        "option" : [
+            {
+                "code" : "Veg",
+                "name" : "Pure Veg"
+            },
+            {
+                "code" : "Non-Veg",
+                "name" : "Non Veg"
+            }
+        ]
+    }
+]

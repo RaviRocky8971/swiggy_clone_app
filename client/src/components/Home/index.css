@@ -1,0 +1,100 @@
+.home-container {
+    position: relative;
+    padding: 20px;
+}
+
+.section-heading {
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+.scroll-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.item-scroll-container {
+    display: flex;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    gap: 20px;
+    padding: 10px 10px;
+    scrollbar-width: none; /* Firefox */
+    flex: 1;
+}
+
+.item-scroll-container::-webkit-scrollbar {
+    display: none;
+}
+
+.scroll-btn {
+    background-color: #f0f0f0;
+    border: none;
+    font-size: 18px;
+    padding: 8px;
+    border-radius: 50%;
+    cursor: pointer;
+    z-index: 1;
+    position: relative;
+}
+
+.scroll-btn.left {
+    margin-right: 10px;
+}
+
+.scroll-btn.right {
+    margin-left: 10px;
+}
+
+.master-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* min-width: 100px; */
+}
+
+.item-image {
+    width: 150px;
+    height: 150px;
+    /* border-radius: 50%; */
+    object-fit: cover;
+}
+
+.item-name {
+    margin-top: 10px;
+    font-size: 14px;
+    color: #333;
+    font-weight: 500;
+}
+
+
+.arrow-styles{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.break-styles{
+    color: rgb(134, 118, 118);
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+.filter-button-styles{
+    background-color: white;
+    font-size: 16px;
+    font-weight: 500;
+    padding: 7px;
+    border-radius: 15px;
+    -webkit-border-radius: 15px;
+    -moz-border-radius: 15px;
+    -ms-border-radius: 15px;
+    -o-border-radius: 15px;
+}
+
+.filter-logo-styles{
+    margin-left: 10px;
+    font-weight: 500;
+}

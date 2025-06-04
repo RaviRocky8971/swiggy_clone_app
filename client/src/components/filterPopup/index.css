@@ -1,0 +1,30 @@
+.main-container {
+  display: flex;
+  flex-direction: row;
+  gap: 2rem;
+  overflow: hidden;
+}
+
+.checkbox-styles {
+  display: flex;
+  flex-direction: column;
+  overflow-x : auto;            /* Enable vertical scroll */
+  scroll-behavior: smooth;
+  padding-right: 10px;         /* Space for scrollbar */
+}
+
+.form-check {
+  margin-bottom: 12px;
+  font-size: 16px;
+}
+
+.checkbox-styles::-webkit-scrollbar {
+  width: 6px;
+}
+.checkbox-styles::-webkit-scrollbar-thumb {
+  background: #aaa;
+  border-radius: 10px;
+}
+.checkbox-styles::-webkit-scrollbar-track {
+  background: transparent;
+}
