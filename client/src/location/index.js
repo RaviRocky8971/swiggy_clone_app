@@ -13,7 +13,7 @@ const Location = ({ closePopup }) => {
             "flag" : 'false',   
             "location" : ""
         }
-        closePopup(data)
+        closePopup(data);
     }
 
     useEffect(() => {
