@@ -22,7 +22,6 @@ const Location = ({ closePopup }) => {
                 setSuggestions([]);
                 return;
             }
-
             try {
                 const response = await fetch(
                     `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(

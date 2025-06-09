@@ -8,6 +8,7 @@ import TopRestaurants from "../TopRestaurants";
 import FilterPopup from "../filterPopup";
 
 import "./index.css";
+import { setfilterData } from "../../slices/filterSlice";
 
 const Home = () => {
     const { city_name, latitude, longitude } = useSelector(state => state.location);
@@ -15,6 +16,7 @@ const Home = () => {
     const [mainItemsData, setMainItemsData] = useState([]);
     const [topRestaurantsData, setTopRestaurantsData] = useState([]);
     const [filterFlag, setFilterFlag] = useState(false);
+    const [selectFilterData, setSelectFilterData] = useState([]);
     const scrollRefMain = useRef(null);
     const scrollRefRestaurants = useRef(null);
 
@@ -56,12 +58,30 @@ const Home = () => {
         getTopRestaurant();
     }, [city_name, latitude, longitude]);
 
-    useEffect(()=>{
-        console.log(selectedfilterData);
-    },[selectedfilterData])
-
-
-    
+    useEffect(() => {
+        const fetchFilterData = async () => {
+            if (selectedfilterData) {
+                let cuisines = "";
+                if (selectedfilterData.CUISINES && selectedfilterData.CUISINES.length > 0) {
+                    cuisines = selectedfilterData.CUISINES.join(',');
+                }
+                
+                const sort = selectedfilterData.SORT?.[0] || "";
+                const rating = selectedfilterData.RATINGS?.[0] || "";
+                const type = selectedfilterData.VEGANDNONVEG?.[0] || "";
+                
+                try {
+                    const apiUrl = `http://localhost:5000/api/getFilterData?sort=${sort}&cuisine=${cuisines}&rating=${rating}&type=${type}&city=${city_name}&latitude=${latitude}&longitude=${longitude}`;
+                    const response = await fetch(apiUrl);
+                    const data = await response.json();
+                    setSelectFilterData(data);
+                } catch (error) {
+                    console.error('Error fetching filter data:', error);
+                }
+            }
+        };
+        fetchFilterData();
+    }, [selectedfilterData, city_name, latitude, longitude]);
 
     const scrollLeft = (ref) => {
         ref.current.scrollBy({ left: -300, behavior: 'smooth' });
@@ -129,9 +149,15 @@ const Home = () => {
 
                 <div className="scroll-wrapper">
                     <div className="item-scroll-container" ref={scrollRefRestaurants}>
-                        {topRestaurantsData.map((eachItem) => (
-                            <TopRestaurants data={eachItem} key={eachItem._id} />
-                        ))}
+                        {selectFilterData && selectFilterData.length > 0 ? (
+                            selectFilterData.map((eachItem) => (
+                                <TopRestaurants data={eachItem} key={eachItem._id} />
+                            ))
+                        ) : (
+                            topRestaurantsData.map((eachItem) => (
+                                <TopRestaurants data={eachItem} key={eachItem._id} />
+                            ))
+                        )}
                     </div>
                 </div>
             </div>
