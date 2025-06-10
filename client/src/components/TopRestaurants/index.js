@@ -1,10 +1,10 @@
 import './index.css';
 
-const TopRestaurants = ({ data }) => {
+const TopRestaurants = ({ data }) => { 
     const {address,city,cuisine,deliveryTime,image,name,rating} = data;
     const cuisineString = cuisine?.join(", ") || "N/A";
     return (
-        <div className="restaurant-card">
+        <div className="restaurant-card mb-3 mt-3">
             <div className="restaurant-image-wrapper">
                 <img src={image} alt={`${name} restaurant`} className="restaurant-image" loading="lazy"
                     onError={(e) => {

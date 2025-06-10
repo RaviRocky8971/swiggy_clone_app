@@ -15,9 +15,17 @@
     align-items: center;
 }
 
+.scroll-wrapper-res{
+    /* position: relative; */
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
 .item-scroll-container {
     display: flex;
-    overflow-x: auto;
+    overflow-y: auto;
     scroll-behavior: smooth;
     gap: 20px;
     padding: 10px 10px;
@@ -97,4 +105,19 @@
 .filter-logo-styles{
     margin-left: 10px;
     font-weight: 500;
+}
+
+.filterButtons{
+    display: flex;
+    flex-direction: row;
+}
+
+.margin-styles{
+    margin-left: 10px;
+}
+
+.filter-restaurant{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
 }
