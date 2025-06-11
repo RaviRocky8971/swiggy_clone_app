@@ -8,7 +8,8 @@ import TopRestaurants from "../TopRestaurants";
 import FilterPopup from "../filterPopup";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "./index.css";
-// import { setfilterData } from "../../slices/filterSlice";
+import { RxCross2 } from "react-icons/rx";
+import Footer from "../footer";
 
 const Home = () => {
     const { city_name, latitude, longitude } = useSelector(state => state.location);
@@ -30,21 +31,25 @@ const Home = () => {
         setFilterFlag(true);
     };
 
-    const onFilterRating = () => {
-        setrating("4.0");
+    const onRating = () => {
+        setrating(prev => (prev === "4.0" ? "" : "4.0"))
     }
-    const onFilterType = () => {
-        settype("Veg");
+
+    const onType = () => {
+        settype(prev => (prev === "Veg" ? "" : "Veg"))
     }
+
     const onPriceBetween = () => {
-        setpriceBetween("300-600");
+        setpriceBetween(prev => (prev === "300-600" ? "" : "300-600"))
     }
+
     const onPriceLow = () => {
-        setpriceLow("299")
+        setpriceLow(prev => (prev === "299" ? "" : "299"))
     }
+
     useEffect(() => {
         if (selectedfilterData) {
-            if (selectedfilterData.CUISINES && selectedfilterData.CUISINES.length > 0) {
+            if (selectedfilterData.CUISINES?.length > 0) {
                 const cuisinesString = selectedfilterData.CUISINES.join(',');
                 setcuisines(cuisinesString);
             }
@@ -79,7 +84,7 @@ const Home = () => {
         const getTopRestaurant = async () => {
             if (!city_name || !latitude || !longitude) return;
             try {
-                const apiUrl = `http://localhost:5000/api/topRestaurants?city=${city_name}&latitude=${latitude}&longitude=${longitude}$price=${priceBetween}&pricelow=${priceLow}`;
+                const apiUrl = `http://localhost:5000/api/topRestaurants?city=${city_name}&latitude=${latitude}&longitude=${longitude}&price=${priceBetween}&pricelow=${priceLow}`;
                 const response = await fetch(apiUrl);
                 const data = await response.json();
                 setTopRestaurantsData(data);
@@ -87,12 +92,10 @@ const Home = () => {
                 console.error("Error fetching top restaurants:", error);
             }
         };
-
         getTopRestaurant();
     }, [city_name, latitude, longitude]);
 
     useEffect(() => {
-        // console.log(rating);return false;
         const fetchFilterData = async () => {
             try {
                 const apiUrl = `http://localhost:5000/api/getFilterData?sort=${sort}&cuisine=${cuisines}&rating=${rating}&type=${type}&city=${city_name}&latitude=${latitude}&longitude=${longitude}`;
@@ -162,36 +165,50 @@ const Home = () => {
                 </div>
 
                 <div className="filterButtons">
-                    <div>
-                        <button className="filter-button-styles" onClick={onFilterClick}>
-                            Filters
-                            <span className="filter-logo-styles ml-5" onClick={onFilterClick}>
-                                <BsFilterRight />
-                            </span>
-                        </button>
-                    </div>
+                    <button className="filter-button-styles" onClick={onFilterClick}>
+                        Filters
+                        <span className="filter-logo-styles ml-5"><BsFilterRight /></span>
+                    </button>
 
-                    <div>
-                        <button className="filter-button-styles margin-styles">Fast Delivery</button>
-                    </div>
-                    <div>
-                        <button className="filter-button-styles margin-styles" onClick={onFilterRating}>Ratings 4.0+</button>
-                    </div>
-                    <div>
-                        <button className="filter-button-styles margin-styles" onClick={onFilterType}>Pure Veg</button>
-                    </div>
-                    <div>
-                        <button className="filter-button-styles margin-styles" onClick={onPriceBetween}>Rs.300-Rs.600</button>
-                    </div>
-                    <div>
-                        <button className="filter-button-styles margin-styles" onClick={onPriceLow} >Less than Rs.300</button>
-                    </div>
+                    <button className="filter-button-styles margin-styles">Fast Delivery</button>
+
+                    <button className={`filter-button-styles margin-styles ${rating !== "" ? "active" : ""}`} id="foodRating" onClick={onRating}>
+                        Ratings 4.0+ {rating !== "" && <RxCross2 />}
+                    </button>
+                    <button className={`filter-button-styles margin-styles ${type !== "" ? "active" : ""}`} id="foodType" onClick={onType}>
+                        Pure Veg {type !== "" && <RxCross2 />}
+                    </button>
+                    <button className={`filter-button-styles margin-styles ${priceBetween === "300-600" ? "active" : ""}`} id="foodPriceBetween" onClick={onPriceBetween}>
+                        Rs.300-Rs.600 {priceBetween === "300-600" && <RxCross2 />}
+                    </button>
+                    <button className={`filter-button-styles margin-styles ${priceLow === "299" ? "active" : ""}`} id="foodPriceLow" onClick={onPriceLow}>
+                        Less than Rs.300 {priceLow === "299" && <RxCross2 />}
+                    </button>
                 </div>
 
                 <div className="filter-restaurant">
                     {(selectFilterData && selectFilterData.length > 0 ? selectFilterData : topRestaurantsData).map((eachItem) => (
                         <TopRestaurants data={eachItem} key={eachItem._id} />
                     ))}
+                </div>
+            </div>
+
+            {city_name && <hr className="break-styles" />}
+
+
+            <div>
+                <div className="footer-styles">
+                    {<h3 className="section-heading-footer mr-3">For Better experience,download the Swiggy app now</h3>}
+                    {<img className="logo-styles-app" src="/play_store.avif" alt="playstore-image"/>}
+                    {<img className="logo-styles-app" src="/app_store.avif" alt="appstore-image" />}
+                </div>
+
+                <div className="footer-styles-footer">
+                    <div>
+                        <img src="/swiggy.png" alt="footer-swiggy-logo" className="logo-styles"/>
+                        <p>2025 Swiggy Limited</p>
+                    </div>
+                    <Footer />
                 </div>
             </div>
 
