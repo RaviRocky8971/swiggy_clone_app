@@ -205,7 +205,7 @@ const Home = () => {
 
                 <div className="footer-styles-footer">
                     <div>
-                        <img src="/swiggy.png" alt="footer-swiggy-logo" className="logo-styles"/>
+                        <img src="/swiggy.png" alt="footer-swiggy-logo" className="logo-styles-footer"/>
                         <p>2025 Swiggy Limited</p>
                     </div>
                     <Footer />

@@ -163,8 +163,10 @@
     display: flex;
     flex-direction: row;
     background-color: #f6f6f6;
-
+    font-weight: 800;
     justify-content: center;
+    /* font-family: ; */
+    margin-right: 30px;
 }
 
 .section-heading-footer{
@@ -179,4 +181,10 @@
     flex-direction: row;
     justify-content: center;
     background-color: #f6f6f6;
+}
+
+.logo-styles-footer{
+    height: 80px;
+    width: 80px;
+    margin-top: 50px;
 }
