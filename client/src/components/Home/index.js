@@ -31,6 +31,10 @@ const Home = () => {
         setFilterFlag(true);
     };
 
+    const getRestaurantData = (Item)=>{
+        console.log(Item);
+    }
+
     const onRating = () => {
         setrating(prev => (prev === "4.0" ? "" : "4.0"))
     }
@@ -151,7 +155,7 @@ const Home = () => {
                 <div className="scroll-wrapper">
                     <div className="item-scroll-container" ref={scrollRefRestaurants}>
                         {topRestaurantsData.map((eachItem) => (
-                            <TopRestaurants data={eachItem} key={eachItem._id} />
+                            <TopRestaurants data={eachItem} key={eachItem._id} onClickRestaurant={getRestaurantData}/>
                         ))}
                     </div>
                 </div>
@@ -194,7 +198,6 @@ const Home = () => {
             </div>
 
             {city_name && <hr className="break-styles" />}
-
 
             <div>
                 <div className="footer-styles">

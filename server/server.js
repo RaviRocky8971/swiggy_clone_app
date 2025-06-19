@@ -16,6 +16,7 @@ app.use('/api/masterItems', require('./routes/masterItems'));
 app.use('/api/topRestaurants', require('./routes/topRestaurants'));
 app.use('/api/getCuisineData', require('./routes/cuisine'));
 app.use('/api/getFilterData', require('./routes/filterRestaurant.js'));
+app.use('/api/getRestaurantName',require('./routes/getRestaurantName.js'))
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server started on port ${PORT}`));

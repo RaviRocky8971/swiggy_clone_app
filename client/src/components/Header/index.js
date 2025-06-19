@@ -12,6 +12,8 @@ import Location from '../../location';
 import { FiChevronDown } from "react-icons/fi";
 import { useSelector, useDispatch } from 'react-redux';
 import { setLocationData } from '../../locationSlice';
+import { useParams } from 'react-router-dom';
+
 
 const Header = () => {
     const dispatch = useDispatch();
