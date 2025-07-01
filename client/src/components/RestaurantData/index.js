@@ -1,14 +1,19 @@
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
-import './index.css'
+import './index.css';
 import RestaurantDetails from "../RestaurantDetails";
+import OfferComponent from "../OfferComponents";
+import { FaCircle, FaArrowUp, FaCaretDown } from "react-icons/fa";
 
 const RestaurantData = () => {
     const { city_name: cityFromRedux } = useSelector(state => state.location);
     const { city_name, _id } = useParams();
     const [restaurantName, setRestaurantName] = useState("");
-    const [restaurantData,setrestaurantData] = useState([]);
+    const [restaurantData, setrestaurantData] = useState([]);
+    const [isVeg, setIsVeg] = useState(true);
+    const [isNonVeg, setIsNonVeg] = useState(false);
+    const [bestseller, setBestseller] = useState(false);
 
     useEffect(() => {
         const getRestaurantName = async () => {
@@ -17,7 +22,6 @@ const RestaurantData = () => {
                 const data = await response.json();
                 setrestaurantData(data);
                 setRestaurantName(data.name || "Unknown");
-                console.log(data);
             } catch (err) {
                 console.error("Error fetching restaurant name:", err);
             }
@@ -28,10 +32,46 @@ const RestaurantData = () => {
 
     return (
         <div>
-            <p><span className="home-styles">Home / {cityFromRedux || city_name}</span><span className="name-styles">/ {restaurantName}</span></p>  
-            <h1>{restaurantName}</h1>
             <div>
-                <RestaurantDetails RestaurantData={restaurantData}/>
+                <p className="restaurant-name-styles">
+                    <span className="home-styles">Home / {cityFromRedux || city_name}</span>
+                    <span className="name-styles"> / {restaurantName}</span>
+                </p>
+                <h1 className="restaurant-name-styles">{restaurantName}</h1>
+                <RestaurantDetails RestaurantData={restaurantData} />
+            </div>
+
+            <div>
+                <h1 className="restaurant-name-styles">Deals for You</h1>
+                <OfferComponent />
+            </div>
+
+            {/* Independent Veg and Non-Veg Toggle Switches */}
+            <div className="veg-nonveg-toggle-switches">
+                {/* Veg Switch */}
+                <label className="toggle-switch">
+                    <input
+                        type="checkbox"
+                        checked={isVeg}
+                        onChange={() => setIsVeg(!isVeg)}
+                        aria-checked={isVeg}
+                        aria-label="Veg toggle"
+                    />
+                    <span className="slider veg"></span>
+                    <span className="switch-label"><span className="switch-dot veg"></span>Veg</span>
+                </label>
+                {/* Non-Veg Switch */}
+                <label className="toggle-switch">
+                    <input
+                        type="checkbox"
+                        checked={isNonVeg}
+                        onChange={() => setIsNonVeg(!isNonVeg)}
+                        aria-checked={isNonVeg}
+                        aria-label="Non-Veg toggle"
+                    />
+                    <span className="slider nonveg"></span>
+                    <span className="switch-label"><span className="switch-dot nonveg"></span>Non-Veg</span>
+                </label>
             </div>
         </div>
     );

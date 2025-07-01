@@ -1,0 +1,72 @@
+.restaurant-container {
+    /* padding: 20px; */
+    margin-left: 20px;
+}
+
+.restaurant-box {
+    background: linear-gradient(to bottom, #ffffff, #f9f9f9);
+    border-radius: 20px;
+    padding: 20px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+    max-width: 600px;
+}
+
+.rating-row {
+    display: flex;
+    align-items: center;
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+.star-icon {
+    height: 20px;
+    width: 20px;
+    margin-right: 6px;
+}
+
+.rating-text {
+    margin-right: 8px;
+}
+
+.dot-divider {
+    margin: 0 8px;
+    color: #666;
+}
+
+.cost-text {
+    font-weight: bold;
+}
+
+.cuisine-text {
+    font-size: 14px;
+    font-weight: 500;
+    margin-bottom: 10px;
+    color: #e03c2f;
+}
+
+.cuisine-item {
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.outlet-section {
+    display: flex;
+    align-items: flex-start;
+    margin-top: 10px;
+}
+
+.outlet-details {
+    display: flex;
+    flex-direction: column;
+}
+
+.outlet-name {
+    margin-left: 4px;
+}
+
+.delivery-time {
+    font-weight: 500;
+    font-size: 14px;
+    margin-top: 4px;
+}
