@@ -30,6 +30,23 @@ const RestaurantData = () => {
         getRestaurantName();
     }, [city_name, _id]);
 
+    useEffect(()=>{
+        const fetchRestaurantData = async () => {
+            try {
+                const response = await fetch(`http://localhost:5000/api/getRestaurantItems?restaurantId=${_id}&type=Veg`);
+                const data = await response.json();
+                console.log("Fetched restaurant data:", data);
+                setrestaurantData(data);
+            } catch (err) {
+                console.error("Error fetching restaurant data:", err);
+            }
+        };
+
+        fetchRestaurantData();
+    },[]);
+
+
+
     return (
         <div>
             <div>
@@ -50,25 +67,13 @@ const RestaurantData = () => {
             <div className="veg-nonveg-toggle-switches">
                 {/* Veg Switch */}
                 <label className="toggle-switch">
-                    <input
-                        type="checkbox"
-                        checked={isVeg}
-                        onChange={() => setIsVeg(!isVeg)}
-                        aria-checked={isVeg}
-                        aria-label="Veg toggle"
-                    />
+                    <input type="checkbox" checked={isVeg} onChange={() => setIsVeg(!isVeg)} aria-checked={isVeg} aria-label="Veg toggle"/>
                     <span className="slider veg"></span>
                     <span className="switch-label"><span className="switch-dot veg"></span>Veg</span>
                 </label>
                 {/* Non-Veg Switch */}
                 <label className="toggle-switch">
-                    <input
-                        type="checkbox"
-                        checked={isNonVeg}
-                        onChange={() => setIsNonVeg(!isNonVeg)}
-                        aria-checked={isNonVeg}
-                        aria-label="Non-Veg toggle"
-                    />
+                    <input type="checkbox" checked={isNonVeg} onChange={() => setIsNonVeg(!isNonVeg)} aria-checked={isNonVeg} aria-label="Non-Veg toggle"/>
                     <span className="slider nonveg"></span>
                     <span className="switch-label"><span className="switch-dot nonveg"></span>Non-Veg</span>
                 </label>
