@@ -1,0 +1,77 @@
+/* Layout for category heading */
+.category-styles {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 20px;
+  background-color: #f8f8f8;
+  border-bottom: 1px solid #ddd;
+  cursor: pointer;
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+/* Icon for expand/collapse */
+.collapse-icon {
+  font-size: 1.2rem;
+  color: #444;
+}
+
+/* Each menu item row */
+.menu-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 15px 20px;
+}
+
+/* Text block inside a menu item */
+.menu-item > div:first-child {
+  flex: 1;
+  padding-right: 20px;
+}
+
+/* Item image */
+.menu-img {
+  width: 130px;
+  height: auto;
+  border-radius: 16px;
+  object-fit: cover;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Divider line between items */
+.break-styles {
+  border: none;
+  border-top: 1px solid #e0e0e0;
+  margin: 0 20px;
+}
+
+/* Space between categories */
+.category-break-styles {
+  height: 16px;
+  background-color: #f2f2f2;
+}
+
+.image-type-styles{
+    height: 20px;
+    width: 20px;
+}
+
+.heading-styles{
+    font-weight: 500;
+}
+
+.price-styles{
+    font-weight: 800;
+}
+
+.rating-styles{
+    display: flex;
+    flex-direction: row;
+}
+
+.star-styles{
+    color: green;
+    margin-top: 3px;
+}

@@ -4,80 +4,89 @@ import { useEffect, useState } from "react";
 import './index.css';
 import RestaurantDetails from "../RestaurantDetails";
 import OfferComponent from "../OfferComponents";
-import { FaCircle, FaArrowUp, FaCaretDown } from "react-icons/fa";
+import ItemTypes from "../ItemTypes";
 
 const RestaurantData = () => {
     const { city_name: cityFromRedux } = useSelector(state => state.location);
     const { city_name, _id } = useParams();
+
     const [restaurantName, setRestaurantName] = useState("");
-    const [restaurantData, setrestaurantData] = useState([]);
-    const [isVeg, setIsVeg] = useState(true);
-    const [isNonVeg, setIsNonVeg] = useState(false);
-    const [bestseller, setBestseller] = useState(false);
+    const [restaurantData, setRestaurantData] = useState({}); // object, not array
+    const [foodType, setFoodType] = useState("Veg");
 
     useEffect(() => {
         const getRestaurantName = async () => {
             try {
                 const response = await fetch(`http://localhost:5000/api/getRestaurantName?id=${_id}`);
                 const data = await response.json();
-                setrestaurantData(data);
                 setRestaurantName(data.name || "Unknown");
             } catch (err) {
                 console.error("Error fetching restaurant name:", err);
             }
         };
-
         getRestaurantName();
     }, [city_name, _id]);
 
-    useEffect(()=>{
+    useEffect(() => {
         const fetchRestaurantData = async () => {
             try {
-                const response = await fetch(`http://localhost:5000/api/getRestaurantItems?restaurantId=${_id}&type=Veg`);
+                const response = await fetch(`http://localhost:5000/api/getRestaurantItems?restaurantId=${_id}&type=${foodType}`);
                 const data = await response.json();
-                console.log("Fetched restaurant data:", data);
-                setrestaurantData(data);
+                console.log("Fetched menu:", data);
+                setRestaurantData(data); // it's grouped by category
             } catch (err) {
                 console.error("Error fetching restaurant data:", err);
             }
         };
-
         fetchRestaurantData();
-    },[]);
-
-
+    }, [foodType, _id]);
 
     return (
         <div>
-            <div>
-                <p className="restaurant-name-styles">
-                    <span className="home-styles">Home / {cityFromRedux || city_name}</span>
-                    <span className="name-styles"> / {restaurantName}</span>
-                </p>
-                <h1 className="restaurant-name-styles">{restaurantName}</h1>
-                <RestaurantDetails RestaurantData={restaurantData} />
-            </div>
+            <p className="restaurant-name-styles">
+                <span className="home-styles">Home / {cityFromRedux || city_name}</span>
+                <span className="name-styles"> / {restaurantName}</span>
+            </p>
 
-            <div>
-                <h1 className="restaurant-name-styles">Deals for You</h1>
-                <OfferComponent />
-            </div>
+            <h1 className="restaurant-name-styles">{restaurantName}</h1>
+            <RestaurantDetails RestaurantData={{ name: restaurantName }} />
 
-            {/* Independent Veg and Non-Veg Toggle Switches */}
+            <h2 className="restaurant-name-styles">Deals for You</h2>
+            <OfferComponent />
+
+            {/* Veg / Non-Veg Toggle */}
             <div className="veg-nonveg-toggle-switches">
-                {/* Veg Switch */}
                 <label className="toggle-switch">
-                    <input type="checkbox" checked={isVeg} onChange={() => setIsVeg(!isVeg)} aria-checked={isVeg} aria-label="Veg toggle"/>
+                    <input
+                        type="checkbox"
+                        checked={foodType === "Veg"}
+                        onChange={() => setFoodType("Veg")}
+                        disabled={foodType === "Veg"}
+                    />
                     <span className="slider veg"></span>
-                    <span className="switch-label"><span className="switch-dot veg"></span>Veg</span>
+                    <span className="switch-label">
+                        <span className="switch-dot veg"></span>Veg
+                    </span>
                 </label>
-                {/* Non-Veg Switch */}
                 <label className="toggle-switch">
-                    <input type="checkbox" checked={isNonVeg} onChange={() => setIsNonVeg(!isNonVeg)} aria-checked={isNonVeg} aria-label="Non-Veg toggle"/>
+                    <input
+                        type="checkbox"
+                        checked={foodType === "Non-Veg"}
+                        onChange={() => setFoodType("Non-Veg")}
+                        disabled={foodType === "Non-Veg"}
+                    />
                     <span className="slider nonveg"></span>
-                    <span className="switch-label"><span className="switch-dot nonveg"></span>Non-Veg</span>
+                    <span className="switch-label">
+                        <span className="switch-dot nonveg"></span>Non-Veg
+                    </span>
                 </label>
             </div>
+
+            <hr className="break-styles" />
+
+            {Object.entries(restaurantData).map(([category, items]) => (
+                <ItemTypes key={category} category={category} items={items} />
+            ))}
         </div>
     );
 };

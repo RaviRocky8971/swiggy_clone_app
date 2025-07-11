@@ -155,3 +155,9 @@
     background: #dc3545;
     display: inline-block;
 }
+
+.break-styles{
+    color: rgb(134, 118, 118);
+    margin-left: 20px;
+    margin-right: 20px;
+}
