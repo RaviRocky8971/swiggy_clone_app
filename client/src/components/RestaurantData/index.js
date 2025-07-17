@@ -1,14 +1,17 @@
-import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import './index.css';
 import RestaurantDetails from "../RestaurantDetails";
 import OfferComponent from "../OfferComponents";
 import ItemTypes from "../ItemTypes";
+import { useSelector } from 'react-redux';
 
 const RestaurantData = () => {
     const { city_name: cityFromRedux } = useSelector(state => state.location);
     const { city_name, _id } = useParams();
+    // const data = useSelector((state) => state.cart.cartData);
+
+    // console.log(data);
 
     const [restaurantName, setRestaurantName] = useState("");
     const [restaurantData, setRestaurantData] = useState({}); // object, not array
@@ -87,6 +90,14 @@ const RestaurantData = () => {
             {Object.entries(restaurantData).map(([category, items]) => (
                 <ItemTypes key={category} category={category} items={items} />
             ))}
+
+            <div className='cart-styles'>
+                <p className='cart-items-para'>{}Items Added</p>
+                <div className='cart-flex-styles'>
+                    <p className='cart-heading-styles'>VIEW CART</p>
+                    <img src="https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_28,h_28/ChatbotAssets/Checkout_Cart" className="image-styles" alt='cart-image'/>
+                </div>
+            </div>
         </div>
     );
 };
