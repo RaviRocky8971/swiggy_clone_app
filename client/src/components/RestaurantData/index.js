@@ -5,18 +5,20 @@ import RestaurantDetails from "../RestaurantDetails";
 import OfferComponent from "../OfferComponents";
 import ItemTypes from "../ItemTypes";
 import { useSelector } from 'react-redux';
+import { Link } from "react-router-dom";
 
 const RestaurantData = () => {
     const { city_name: cityFromRedux } = useSelector(state => state.location);
     const { city_name, _id } = useParams();
-    // const data = useSelector((state) => state.cart.cartData);
-
-    // console.log(data);
-
     const [restaurantName, setRestaurantName] = useState("");
     const [restaurantData, setRestaurantData] = useState({}); // object, not array
     const [foodType, setFoodType] = useState("Veg");
-
+    const cartData = useSelector((state) => state.cart.cartData);
+    
+    // Calculate total items in cart
+    const totalItems = cartData.reduce((sum, item) => sum + item.count, 0);
+    const totalPrice = cartData.reduce((sum, item) => sum + item.totalPrice, 0);
+    
     useEffect(() => {
         const getRestaurantName = async () => {
             try {
@@ -35,6 +37,7 @@ const RestaurantData = () => {
             try {
                 const response = await fetch(`http://localhost:5000/api/getRestaurantItems?restaurantId=${_id}&type=${foodType}`);
                 const data = await response.json();
+                
                 console.log("Fetched menu:", data);
                 setRestaurantData(data); // it's grouped by category
             } catch (err) {
@@ -45,7 +48,7 @@ const RestaurantData = () => {
     }, [foodType, _id]);
 
     return (
-        <div>
+        <div className="restaurant-data-wrapper">
             <p className="restaurant-name-styles">
                 <span className="home-styles">Home / {cityFromRedux || city_name}</span>
                 <span className="name-styles"> / {restaurantName}</span>
@@ -91,13 +94,17 @@ const RestaurantData = () => {
                 <ItemTypes key={category} category={category} items={items} />
             ))}
 
-            <div className='cart-styles'>
-                <p className='cart-items-para'>{}Items Added</p>
-                <div className='cart-flex-styles'>
-                    <p className='cart-heading-styles'>VIEW CART</p>
-                    <img src="https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_28,h_28/ChatbotAssets/Checkout_Cart" className="image-styles" alt='cart-image'/>
+            {totalItems > 0 && (
+                <div className='cart-styles'>
+                    <p className='cart-items-para'>{totalItems} Items Added</p>
+                    <div className='cart-flex-styles'>
+                        <p className='cart-heading-styles'>VIEW CART ₹{totalPrice}</p>
+                        <Link to='/cart'>
+                            <img src="https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_28,h_28/ChatbotAssets/Checkout_Cart" className="image-styles" alt='cart-image'/>
+                        </Link>
+                    </div>
                 </div>
-            </div>
+            )}
         </div>
     );
 };

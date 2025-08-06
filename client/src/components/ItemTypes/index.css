@@ -168,3 +168,27 @@
   flex-direction: row;
   justify-content: space-between;
 }
+
+
+.quantity-controller {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.qty-btn {
+  background-color: #f0f0f0;
+  border: 1px solid #ccc;
+  padding: 4px 10px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.qty-count {
+  font-size: 16px;
+  font-weight: bold;
+}

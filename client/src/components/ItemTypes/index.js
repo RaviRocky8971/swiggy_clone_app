@@ -3,22 +3,46 @@ import './index.css';
 import { IoStarSharp } from "react-icons/io5";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
-import { useSelector,useDispatch } from 'react-redux';
-import { setCartData } from '../../slices/cartSlice';
+import { useSelector, useDispatch } from 'react-redux';
+import { addToCart, updateCartItem } from '../../slices/cartSlice';
 
 const ItemTypes = ({ category, items }) => {
     const [isOpen, setIsOpen] = useState(true);
     const toggleOpen = () => setIsOpen(prev => !prev);
+
     const dispatch = useDispatch();
-
-
     const [selectedItem, setSelectedItem] = useState(null);
-    const [selectedOptions, setSelectedOptions] = useState({}); 
-    const [cartSelectedData, setCartSelectedData] = useState([]);
+    const [selectedOptions, setSelectedOptions] = useState({});
+    const cartData = useSelector((state) => state.cart.cartData);
 
     const updatedPrice = selectedItem
         ? selectedItem.price + Object.values(selectedOptions).reduce((sum, price) => sum + price, 0)
         : 0;
+
+    // Function to get cart count for an item
+    const getCartCount = (itemId) => {
+        const cartItem = cartData.find(item => item.id === itemId);
+        return cartItem ? cartItem.count : 0;
+    };
+
+    const handleOptionChange = (optionGroupName, option, checked) => {
+        const optionKey = `${optionGroupName}-${option.name}`;
+        setSelectedOptions(prev => {
+            const newOptions = { ...prev };
+            if (checked) {
+                newOptions[optionKey] = option.price;
+            } else {
+                delete newOptions[optionKey];
+            }
+            return newOptions;
+        });
+    };
+
+    const openCustomization = (item) => {
+        setSelectedItem(item);
+        console.log(item);
+        setSelectedOptions({});
+    };
 
     const onAddItemData = () => {
         if (!selectedItem) return;
@@ -32,33 +56,25 @@ const ItemTypes = ({ category, items }) => {
             name: selectedItem.name,
             basePrice: selectedItem.price,
             customOptions: selectedOptionsArray,
+            id: selectedItem._id,
             totalPrice: updatedPrice,
+            count: 1,
         };
 
-        setCartSelectedData(prev => [...prev, item]);
-        console.log("Cart items: ", [...cartSelectedData, item]);
+        dispatch(addToCart(item));
         setSelectedItem(null);
         setSelectedOptions({});
-
-        dispatch(setCartData({cartData : cartSelectedData}));
     };
 
-    const onAddingElement = (item) => {
-        setSelectedItem(item);
-        setSelectedOptions({});
+    const incrementItem = (item) => {
+        const currentCount = getCartCount(item._id);
+        dispatch(updateCartItem({ id: item._id, count: currentCount + 1 }));
     };
 
-    const handleOptionChange = (optionGroupName, option, checked) => {
-        const optionKey = `${optionGroupName}-${option.name}`;
-        setSelectedOptions(prev => {
-            const newOptions = { ...prev };
-            if (checked) {
-                newOptions[optionKey] = option.price; // Add option price
-            } else {
-                delete newOptions[optionKey]; // Remove option price
-            }
-            return newOptions;
-        });
+    const decrementItem = (item) => {
+        const currentCount = getCartCount(item._id);
+        if (currentCount <= 0) return;
+        dispatch(updateCartItem({ id: item._id, count: currentCount - 1 }));
     };
 
     return (
@@ -71,34 +87,41 @@ const ItemTypes = ({ category, items }) => {
 
                 {isOpen && (
                     <div className="items-list">
-                        {items.map(item => (
-                            <div key={item._id}>
-                                <div className="menu-item">
-                                    <div>
-                                        <img src={item.type_image} alt='type' className='image-type-styles' />
-                                        <h5 className='heading-styles'>{item.name}</h5>
-                                        <p>{item.description}</p>
-                                        <p className='price-styles'>₹{item.price}</p>
-                                        <div className='rating-styles'>
-                                            <IoStarSharp className='star-styles' />
-                                            <p>{item.rating} ({item.reviews})</p>
+                        {items.map(item => {
+                            const cartCount = getCartCount(item._id);
+                            return (
+                                <div key={item._id}>
+                                    <div className="menu-item">
+                                        <div>
+                                            <img src={item.type_image} alt='type' className='image-type-styles' />
+                                            <h5 className='heading-styles'>{item.name}</h5>
+                                            <p>{item.description}</p>
+                                            <p className='price-styles'>₹{item.price}</p>
+                                            <div className='rating-styles'>
+                                                <IoStarSharp className='star-styles' />
+                                                <p>{item.rating} ({item.reviews})</p>
+                                            </div>
+                                        </div>
+
+                                        <div>
+                                            <img src={item.image} alt={item.name} className="menu-img" />
+                                            {cartCount > 0 ? (
+                                                <div className="quantity-controller">
+                                                    <button onClick={() => decrementItem(item)} className="qty-btn">-</button>
+                                                    <span className="qty-count">{cartCount}</span>
+                                                    <button onClick={() => incrementItem(item)} className="qty-btn">+</button>
+                                                </div>
+                                            ) : (
+                                                <button className='adding-btn-styles' onClick={() => openCustomization(item)} data-bs-toggle="modal" data-bs-target="#myModal">
+                                                    ADD
+                                                </button>
+                                            )}
                                         </div>
                                     </div>
-                                    <div>
-                                        <img src={item.image} alt={item.name} className="menu-img" />
-                                        <button
-                                            className='adding-btn-styles'
-                                            onClick={() => onAddingElement(item)}
-                                            data-bs-toggle="modal"
-                                            data-bs-target="#myModal"
-                                        >
-                                            ADD
-                                        </button>
-                                    </div>
+                                    <hr className="break-styles" />
                                 </div>
-                                <hr className="break-styles" />
-                            </div>
-                        ))}
+                            );
+                        })}
                     </div>
                 )}
             </div>

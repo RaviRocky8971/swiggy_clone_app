@@ -117,3 +117,16 @@
   color: #fc8019;
   margin-top: 28px;
 }
+
+.count_styles{
+    margin-top: 15px;
+    margin-right: -20px;
+    background-color: green;
+    padding-left: 5px;
+    padding-right: 5px;
+    border-radius: 2px;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    -ms-border-radius: 2px;
+    -o-border-radius: 2px;
+}
