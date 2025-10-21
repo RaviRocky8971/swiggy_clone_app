@@ -4,42 +4,42 @@ import './index.css';
 import RestaurantDetails from "../RestaurantDetails";
 import OfferComponent from "../OfferComponents";
 import ItemTypes from "../ItemTypes";
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { Link } from "react-router-dom";
+import { setRestaurantName } from '../../slices/cartSlice';
 
 const RestaurantData = () => {
     const { city_name: cityFromRedux } = useSelector(state => state.location);
     const { city_name, _id } = useParams();
-    const [restaurantName, setRestaurantName] = useState("");
-    const [restaurantData, setRestaurantData] = useState({}); // object, not array
+    const [restaurantName, setRestaurantNameLocal] = useState("");
+    const [restaurantData, setRestaurantData] = useState({});
     const [foodType, setFoodType] = useState("Veg");
     const cartData = useSelector((state) => state.cart.cartData);
-    
-    // Calculate total items in cart
+    const dispatch = useDispatch();
+
     const totalItems = cartData.reduce((sum, item) => sum + item.count, 0);
     const totalPrice = cartData.reduce((sum, item) => sum + item.totalPrice, 0);
-    
+
     useEffect(() => {
         const getRestaurantName = async () => {
             try {
                 const response = await fetch(`http://localhost:5000/api/getRestaurantName?id=${_id}`);
                 const data = await response.json();
-                setRestaurantName(data.name || "Unknown");
+                setRestaurantNameLocal(data.name || "Unknown");
+                dispatch(setRestaurantName(data.name || "Unknown"));
             } catch (err) {
                 console.error("Error fetching restaurant name:", err);
             }
         };
         getRestaurantName();
-    }, [city_name, _id]);
+    }, [city_name, _id, dispatch]);
 
     useEffect(() => {
         const fetchRestaurantData = async () => {
             try {
                 const response = await fetch(`http://localhost:5000/api/getRestaurantItems?restaurantId=${_id}&type=${foodType}`);
                 const data = await response.json();
-                
-                console.log("Fetched menu:", data);
-                setRestaurantData(data); // it's grouped by category
+                setRestaurantData(data);
             } catch (err) {
                 console.error("Error fetching restaurant data:", err);
             }
@@ -60,7 +60,6 @@ const RestaurantData = () => {
             <h2 className="restaurant-name-styles">Deals for You</h2>
             <OfferComponent />
 
-            {/* Veg / Non-Veg Toggle */}
             <div className="veg-nonveg-toggle-switches">
                 <label className="toggle-switch">
                     <input
